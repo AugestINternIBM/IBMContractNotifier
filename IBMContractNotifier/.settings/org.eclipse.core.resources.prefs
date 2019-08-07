@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/GUI/src/gui.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/Contract.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/ContractOperationDecisionService_PortType.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/ContractOperationDecisionService_Service.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/ContractOperationDecisionService_ServiceLocator.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/ContractOperationException.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/ContractOperationRequest.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/ContractOperationResponse.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/ContractRulesDeploymentContractOperationBindingStub.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/Notification.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/param/Contracts.java=UTF-8
+encoding//src/com/ibm/www/rules/decisionservice/ContractRulesDeployment/ContractOperation/param/Notifications.java=UTF-8
