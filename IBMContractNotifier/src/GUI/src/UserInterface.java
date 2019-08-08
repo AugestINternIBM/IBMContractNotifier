@@ -7,16 +7,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.rmi.RemoteException;
-import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -34,6 +29,9 @@ import com.ibm.contracts.client.ClientApplication;
 
 import javax.swing.JTextField;
 import javax.swing.JProgressBar;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 public class UserInterface {
 
@@ -65,14 +63,11 @@ public class UserInterface {
 	private static JProgressBar progressBar;
 	private JButton runButton;
 	
-	private static	JFileChooser fileChooser;
+	private JFileChooser fileChooser;
 	private FileNameExtensionFilter excelFilter = new FileNameExtensionFilter("XLS files", "xls", "xlsx");
 	private int returnValue;
 	private File selectedFile;
 	private  ClientApplication client =new ClientApplication();
-	
-	private static String inputPath=getConfigPath("inputPath");
-	private static String outputPath=getConfigPath("outputPath");
 
 	private FileNameExtensionFilter txtFilter = new FileNameExtensionFilter("Text files", "txt");
 
@@ -128,7 +123,6 @@ public class UserInterface {
 		titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		titleLabel.setBounds(10, 12, 141, 15);
 		navPanel.add(titleLabel);
-		
 
 		hostEdittext = new JEditorPane();
 		String serverAddress = client.readServerURL();
@@ -176,14 +170,13 @@ public class UserInterface {
 		forecastButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				fileChooser = new JFileChooser(getConfigPath("inputPath"));
+				fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(excelFilter);
 				returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					selectedFile = fileChooser.getSelectedFile();
+					System.out.println(selectedFile.getPath());
 					forecastTextField.setText(selectedFile.getPath());
-					inputPath= selectedFile.getPath();
-					setConfigPath();
 					progressBar.setValue(10);
 					 client.setFcPath(selectedFile.getPath());
 				}
@@ -227,14 +220,13 @@ public class UserInterface {
 		feedbackButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				fileChooser = new JFileChooser(getConfigPath("inputPath"));
+				fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(excelFilter);
 				returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					selectedFile = fileChooser.getSelectedFile();
+					System.out.println(selectedFile.getPath());
 					feedbackTextField.setText(selectedFile.getPath());
-					inputPath= selectedFile.getPath();
-					setConfigPath();
 					progressBar.setValue(20);
 					 client.setFeedbackPath(selectedFile.getPath());
 				}
@@ -284,14 +276,13 @@ public class UserInterface {
 		outputButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				fileChooser = new JFileChooser(getConfigPath("outputPath"));
+				fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(txtFilter);
 				returnValue = fileChooser.showOpenDialog(null);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					selectedFile = fileChooser.getSelectedFile();
+					System.out.println(selectedFile.getPath());
 					outputTextField.setText(selectedFile.getPath());
-					outputPath= selectedFile.getPath();
-					setConfigPath();
 					progressBar.setValue(30);
 				 client.setOutPutFilePath(selectedFile.getPath());
 				}
@@ -332,6 +323,8 @@ public class UserInterface {
 		runButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println(hostEdittext.getText());
+				
 				if(checkValidity()) {
 					progressBar.setValue(70);
 					writeServerURL(hostEdittext.getText());
@@ -400,37 +393,4 @@ public class UserInterface {
 				/* ignore */}
 		}
 	}
-	
-	public static String getConfigPath(String io){
-		Properties prop = new Properties();
-		String fileName = "app.config";
-		InputStream is = null;
-		try {
-		    is = new FileInputStream(fileName);
-		} catch (FileNotFoundException ex) {
-			fileChooser = new JFileChooser();
-		}
-		try {
-		    prop.load(is);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		return (prop.getProperty(io));
-	}
-	
-	public static void setConfigPath(){
-		String fileName = "app.config";
-		try {
-		    Properties props = new Properties();
-		    props.setProperty("inputPath", inputPath);
-		    props.setProperty("outputPath", outputPath);
-		    props.store(new FileOutputStream(fileName), null);
-		} catch (FileNotFoundException ex) {
-		    ex.printStackTrace();
-		} catch (IOException ex) {
-		    ex.printStackTrace();
-		}
-	}
 }
-
-
