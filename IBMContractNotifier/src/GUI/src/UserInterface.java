@@ -358,6 +358,7 @@ public class UserInterface {
 		});
 	}
 	
+	
 	private static boolean checkValidity() {
 		if(forecastTextField.getText().equals("")
 				|| forecastTextField.getText().isEmpty()
